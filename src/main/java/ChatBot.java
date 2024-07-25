@@ -6,9 +6,10 @@ public class ChatBot {
 
         greetUser();
         String name = askName(scanner);
-        guessAge(scanner);
+        int age = guessAge(scanner);
         countToNumber(scanner);
         testProgrammingKnowledge(scanner);
+        tellStory(name, age);
 
         scanner.close();
     }
@@ -24,17 +25,15 @@ public class ChatBot {
         return name;
     }
 
-    private static void guessAge(Scanner scanner) {
+    private static int guessAge(Scanner scanner) {
         System.out.println("What year did you graduate high school?");
         int hsg;
         while (true) {
             if (scanner.hasNextInt()) {
                 hsg = scanner.nextInt();
-                scanner.nextLine();  // Consume newline left-over
                 break;
             } else {
                 System.out.println("Please enter a valid year:");
-                scanner.next();  // Consume the invalid input
             }
         }
 
@@ -44,21 +43,22 @@ public class ChatBot {
 
         if (a.equals("yes")) {
             System.out.println("Fantastic");
+            return hsa;
         } else {
             System.out.println("Let's narrow it down. What was the first video game console you remember playing?");
             String console = scanner.nextLine().trim().toLowerCase();
 
             int ageGuess = 0;
             if (console.contains("atari")) {
-                ageGuess = (2024 - hsg) + 18 + 6; // Assume they are older
+                ageGuess = (2024 - hsg) + 18 + 10; // Assume they are older
             } else if (console.contains("nes") || console.contains("nintendo")) {
-                ageGuess = (2024 - hsg) + 18 + 3; // Assume they are slightly older
+                ageGuess = (2024 - hsg) + 18 + 5; // Assume they are slightly older
             } else if (console.contains("playstation")) {
                 ageGuess = (2024 - hsg) + 18; // Keep the same age
             } else if (console.contains("xbox")) {
-                ageGuess = (2024 - hsg) + 18 - 3; // Assume they are slightly younger
+                ageGuess = (2024 - hsg) + 18 - 5; // Assume they are slightly younger
             } else {
-                ageGuess = (2024 - hsg) + 18 - 6; // Default adjustment for newer consoles
+                ageGuess = (2024 - hsg) + 18 - 10; // Default adjustment for newer consoles
             }
 
             System.out.println("Based on your answer, are you around " + ageGuess + " years old? (yes/no)");
@@ -69,6 +69,7 @@ public class ChatBot {
             } else {
                 System.out.println("Sorry, I couldn't guess your age accurately.");
             }
+            return ageGuess;
         }
     }
 
@@ -78,8 +79,8 @@ public class ChatBot {
         while (true) {
             if (scanner.hasNextInt()) {
                 number = scanner.nextInt();
-                break;
 
+                break;
             } else {
                 System.out.println("Please enter a valid number:");
             }
@@ -105,6 +106,7 @@ public class ChatBot {
             if (scanner.hasNextInt()) {
                 userAnswer = scanner.nextInt();
 
+
                 if (userAnswer == correctAnswer) {
                     System.out.println("Correct! 'char' is a valid Java data type.");
                 } else {
@@ -114,5 +116,15 @@ public class ChatBot {
                 System.out.println("Please enter a valid number (1-4):");
             }
         }
+    }
+
+    private static void tellStory(String name, int age) {
+        System.out.println("Now, let me tell you a story.");
+        System.out.println("Once upon a time, there was a person named " + name + ".");
+        System.out.println(name + " was " + age + " years old, wise and experienced in the ways of life.");
+        System.out.println("One day, " + name + " decided to learn programming and quickly became a master coder.");
+        System.out.println("With knowledge in Java and an impressive age, " + name + " went on to create amazing software that changed the world.");
+        System.out.println("And thus, " + name + "'s journey continues, always learning, always growing.");
+        System.out.println("The end.");
     }
 }
